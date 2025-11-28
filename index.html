@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS:GO Trade Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Impact&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="bg-video"></div>
+
+    <header class="cs-header">
+        <div class="logo">CS <span class="accent">TRADE</span></div>
+        <nav class="cs-nav">
+            <a href="#store">Магазин</a>
+            <a href="#community">Сообщество</a>
+            <a href="https://t.me/placeholder_cs_chat" target="_blank" class="tg-link">
+                <i class="fab fa-telegram-plane"></i> Чат
+            </a>
+        </nav>
+        <div class="cart" onclick="openCartModal()">
+            <i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="controls">
+            <div class="control-group">
+                <h3>Vibe (Настроение):</h3>
+                <button onclick="setMood('energetic')">🔥 Агрессивный</button>
+                <button onclick="setMood('calm')">🌊 Спокойный</button>
+                <button onclick="setMood('moderate')">⚖️ Классика</button>
+            </div>
+            <div class="control-group">
+                <h3>Стиль:</h3>
+                <button onclick="toggleTheme()">🌗 Сменить тему (Светлая/Темная)</button>
+            </div>
+        </div>
+        
+        <h1 class="section-title" id="store">🔥 Магазин</h1>
+        
+        <div class="products-grid" id="products-container">
+            </div>
+
+        <h2 class="section-title" id="community">⭐ CS Community Hub</h2>
+        
+        <div class="community-buttons">
+            <a href=" https://t.me/s/newcsgo" target="_blank" class="community-btn telegram-btn">
+                <i class="fab fa-telegram-plane"></i> Присоединиться к ТГ Чату
+            </a>
+            <a href="https://discord.com/invite/counterstrike" target="_blank" class="community-btn discord-btn">
+                <i class="fab fa-discord"></i> Сервер Discord
+            </a>
+        </div>
+        
+        <div class="community-feed">
+            <div class="feed-post">
+                <h4>Сбор Team Liquid на Major!</h4>
+                <p>Парни готовы к бою. Обсуждение прогнозов в комментариях.</p>
+                <span class="post-meta">25 комментариев | 5ч назад</span>
+            </div>
+            <div class="feed-post">
+                <h4>Обновление: Новый кейс "Riptide" добавлен!</h4>
+                <p>Смотри новые скины в магазине!</p>
+                <span class="post-meta">120 лайков | 1ч назад</span>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 CS Trade Hub.</p>
+    </footer>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeCartModal()">&times;</span>
+            <h2>Ваш Инвентарь</h2>
+            <div id="cart-items-list">
+                </div>
+            <div id="cart-total"></div>
+            <button class="checkout-btn" onclick="goToCheckout()">Оформить заказ</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

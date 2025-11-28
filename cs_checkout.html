@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа - CS:GO Trade Hub</title>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* Стили только для страницы оплаты */
+        :root {
+            --bg-color: #1a1a1a;
+            --accent-color: #f39c12; 
+            --card-bg: #2c2c2c;
+        }
+        body { background-color: var(--bg-color); }
+
+        .checkout-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            color: white;
+            text-align: left;
+            box-shadow: 0 0 25px rgba(243, 156, 18, 0.3);
+        }
+        .checkout-container h1 { 
+            text-align: center; 
+            color: var(--accent-color); 
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+        .payment-form input {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            box-sizing: border-box;
+            background-color: #3e3e3e;
+            color: white;
+            outline: none;
+        }
+        .payment-info { margin-bottom: 20px; padding: 15px; border: 1px dashed var(--accent-color); border-radius: 5px; }
+        .payment-info ul { list-style: none; padding: 0; }
+        .payment-info li { margin-bottom: 5px; color: #ccc; }
+        .card-row { display: flex; gap: 10px; }
+        .card-row input { flex: 1; }
+        
+        .finish-btn {
+            width: 100%;
+            background: var(--accent-color);
+            color: black;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body onload="displayCartSummary()">
+
+    <div id="bg-video" style="background-image: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Q1enp6b29sczVsdjY2d2N1NHUxcWdvM2g2bHNkbW0wZzVqbmVwcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XJ77xYn7F9gYg/giphy.gif'); z-index: -2;"></div>
+
+    <div class="checkout-container">
+        <h1>Подтверждение Покупки</h1>
+        
+        <h3>Ваш инвентарь:</h3>
+        <div class="payment-info" id="checkout-summary">
+            </div>
+
+        <form class="payment-form" onsubmit="alert('Успех! Ваш заказ оплачен, скины будут доставлены в инвентарь (симуляция).'); localStorage.removeItem('cs_cart'); window.location.href = 'index.html'; return false;">
+            <h3>Данные для оплаты</h3>
+            <input type="text" placeholder="Номер карты (16 цифр)" pattern="\d{16}" required>
+            <div class="card-row">
+                <input type="text" placeholder="ММ/ГГ" pattern="\d{2}/\d{2}" required>
+                <input type="text" placeholder="CVV" pattern="\d{3}" required>
+            </div>
+            <input type="text" placeholder="Имя владельца" required>
+            
+            <button type="submit" class="finish-btn">Оплатить и получить скины</button>
+        </form>
+    </div>
+
+    <script>
+        function displayCartSummary() {
+            // Используем 'cs_cart'
+            const cartItems = JSON.parse(localStorage.getItem('cs_cart')) || [];
+            const summaryDiv = document.getElementById('checkout-summary');
+            let total = 0;
+
+            if (cartItems.length === 0) {
+                summaryDiv.innerHTML = '<p style="text-align: center;">Инвентарь пуст. <a href="index.html" style="color: var(--accent-color);">Вернуться в магазин</a></p>';
+                return;
+            }
+
+            let summaryHTML = '<ul>';
+            cartItems.forEach(item => {
+                total += item.price;
+                summaryHTML += `<li>${item.name} (${item.displayPrice})</li>`;
+            });
+            summaryHTML += '</ul>';
+
+            const formattedTotal = total.toLocaleString('ru-RU', { style: 'currency', currency: 'KZT', minimumFractionDigits: 0 });
+
+            summaryDiv.innerHTML = summaryHTML;
+            summaryDiv.innerHTML += `<div><strong>Общая сумма:</strong> <strong>${formattedTotal}</strong></div>`;
+        }
+    </script>
+</body>
+</html>
